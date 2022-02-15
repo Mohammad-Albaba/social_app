@@ -3,6 +3,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/layout/cubit/cubit.dart';
+import 'package:social_app/layout/cubit/states.dart';
 import 'package:social_app/layout/social_layout.dart';
 import 'package:social_app/modules/social_login/social_login_screen.dart';
 import 'package:social_app/shared/bloc_observer.dart';
@@ -15,8 +16,8 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await Firebase.initializeApp();
-
   Bloc.observer = MyBlocObserver();
+  await CacheHelper.init();
 
   Widget widget;
   uId = CacheHelper.getData(key: 'uId');
@@ -41,8 +42,9 @@ class MyApp extends StatelessWidget {
       providers: [
         BlocProvider(
             create: (BuildContext context) => SocialCubit()..getUserData()),
+
       ],
-      child: BlocConsumer(
+      child: BlocConsumer<SocialCubit,SocialStates>(
         listener: (context, state) {},
         builder: (context, state) {
           return MaterialApp(

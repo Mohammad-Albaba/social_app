@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:social_app/layout/cubit/cubit.dart';
 import 'package:social_app/layout/cubit/states.dart';
 import 'package:social_app/shared/styles/icon_broken.dart';
+import 'package:social_app/shared/styles/icon_broken.dart';
 
 class SocialLayout extends StatelessWidget {
   @override
@@ -11,12 +12,25 @@ class SocialLayout extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var cubit = SocialCubit.get(context);
-
         return Scaffold(
           appBar: AppBar(
-            title: const Text(
-              'Albaba',
+            title: Text(
+              cubit.titles[cubit.currentIndex],
             ),
+            actions: [
+              IconButton(
+                onPressed: () {},
+                icon: Icon(
+                    IconBroken.Notification
+                ),
+              ),
+              IconButton(
+                  onPressed: (){},
+                  icon: Icon(
+                    IconBroken.Search,
+                  )
+              ),
+            ],
           ),
           body: cubit.screens[cubit.currentIndex],
           bottomNavigationBar: BottomNavigationBar(
